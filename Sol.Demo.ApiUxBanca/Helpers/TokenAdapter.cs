@@ -25,7 +25,17 @@ namespace Sol.Demo.ApiUxBanca.Helpers
                 new TokenResponseDTO { Process = false };
 
             var client = new HttpClient();
-            var disco = await client.GetDiscoveryDocumentAsync(options.UrlServer);
+            //var disco = await client.GetDiscoveryDocumentAsync(options.UrlServer);
+
+            var disco = await client.GetDiscoveryDocumentAsync(
+             new DiscoveryDocumentRequest
+             {
+                 Address = options.UrlServer,
+                 Policy = {
+                        RequireHttps = false
+                 }
+             });
+
             if (disco.IsError)
             {
                 Console.WriteLine(disco.Error);

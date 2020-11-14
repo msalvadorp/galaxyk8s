@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Sol.Demo.ApiOpBanca.Contexto;
 using Sol.Demo.ApiOpBanca.Services;
 using Sol.Demo.ApiOpBanca.ServicesGrpc;
+using Sol.Demo.Comunes.Configs;
 
 namespace Sol.Demo.ApiOpBanca
 {
@@ -29,6 +30,9 @@ namespace Sol.Demo.ApiOpBanca
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IdentityServerConfig identityConfig =
+               Configuration.GetSection("IdentityServer").Get<IdentityServerConfig>();
+
             string cadena = Configuration.GetValue<string>("ConnectionStrings:BDCliente");
             services.AddDbContext<CuentasContext>(options => {
                 options.UseSqlServer(cadena);
@@ -41,11 +45,12 @@ namespace Sol.Demo.ApiOpBanca
             
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options => {
-                    options.Authority = "http://localhost:27834";
+                    options.Authority = identityConfig.UrlServer;
                     options.RequireHttpsMetadata = false;
                     options.TokenValidationParameters =
                         new Microsoft.IdentityModel.Tokens.TokenValidationParameters {
-                            ValidateAudience = false
+                            ValidateAudience = false,
+                            ValidateIssuer = false
                         };
                 });
 
@@ -54,21 +59,27 @@ namespace Sol.Demo.ApiOpBanca
 
                 opt.AddPolicy("Apiscope", pol => {
                     pol.RequireAuthenticatedUser();
-                    pol.RequireClaim("scope", "apibanca");
+                    pol.RequireClaim("scope", identityConfig.ResourceId);
                 });
             });
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app, 
+            IWebHostEnvironment env, 
+            ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
+            IdentityServerConfig config = Configuration
+                      .GetSection("IdentityServer").Get<IdentityServerConfig>();
+
+            logger.LogWarning("Llego IdentityServer " + Newtonsoft.Json.JsonConvert.SerializeObject(config));
 
             app.UseRouting();
             app.UseAuthentication();
