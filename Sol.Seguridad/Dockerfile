@@ -5,6 +5,7 @@ WORKDIR /app
 ENV ASPNETCORE_URLS="http://+:8081"
 EXPOSE 8081
 
+
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["Sol.Seguridad/Sol.Seguridad.csproj", "Sol.Seguridad/"]
