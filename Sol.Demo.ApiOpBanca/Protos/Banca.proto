@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "Sol.Demo.Banca.Protos";
+
+service BancaServiceGrpc{
+    rpc ProcesaTransaccion ( txRequest ) returns ( txResponse );
+    rpc Eliminar ( txRequest ) returns ( txResponse );
+    rpc Recuperar ( txRequest ) returns ( txResponse );
+    
+}
+
+message txRequest{
+	int32 idCuentaOrigen = 1;
+    int32 idCuentaDestino = 2;
+    double monto = 3;
+}
+
+message txResponse{
+    int32 idOperacion = 1;
+}

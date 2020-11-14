@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sol.Demo.Comunes\Sol.Demo.Comunes.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\Sol.Demo.ApiOpCliente\Protos\AccuntService.proto" GrpcServices="Client">
+      <Link>Protos\AccuntService.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\Sol.Demo.ApiOpCliente\Protos\CustomerService.proto" GrpcServices="Client">
+      <Link>Protos\CustomerService.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+
+
+</Project>
