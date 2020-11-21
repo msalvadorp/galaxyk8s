@@ -3,7 +3,7 @@
 #FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as base
 WORKDIR /app
-ENV ASPNETCORE_URLS="http://+:8090;http://+:8091"
+ENV ASPNETCORE_URLS="http://+:8090;https://+:8091"
 ENV IdentityServer__UrlServer="DEMO"
 EXPOSE 8090
 EXPOSE 8091

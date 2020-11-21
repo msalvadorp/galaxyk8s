@@ -2,6 +2,8 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
+ENV UrlApiCliente="UrlApiCliente"
+ENV IdentityServer__UrlServer="http://seguridad:9090"
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
