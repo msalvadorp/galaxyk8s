@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Sol.Demo.ApiUxBanca.Helpers;
@@ -39,8 +41,31 @@ namespace Sol.Demo.ApiUxBanca
             services.Configure<IdentityServerConfig>
                 (Configuration.GetSection("IdentityServer"));
 
+            //Usado para poder generar los Transient dinamicamente
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
             services.AddTransient<ITokenAdapter, TokenAdapter>();
-            services.AddTransient<ITransactionServices, TransactionGrpcServces>();
+
+            //asociaciacion dinamica con el transientsegun el valos del header
+            services.AddTransient<ITransactionServices>(serviceProvider =>
+            {
+                var context = serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext;
+                var header = context.Request.Headers["protocol"];
+                if (string.IsNullOrEmpty(header) || header == "http")
+                {
+                    return new TransactionHttpServices
+                        (serviceProvider.GetService<IConfiguration>());
+                }
+                else
+                {
+                    return new TransactionGrpcServces(
+                        serviceProvider.GetService<ITokenAdapter>(),
+                        serviceProvider.GetService<IConfiguration>()
+                        );
+                }
+            });
+            //services.AddTransient<ITransactionServices, TransactionGrpcServces>();
             services.AddControllers();
         }
 

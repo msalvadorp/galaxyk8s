@@ -14,6 +14,7 @@ using System.IO;
 
 namespace Sol.Seguridad
 {
+
     public class Startup
     {
         private readonly IConfiguration configuration;
