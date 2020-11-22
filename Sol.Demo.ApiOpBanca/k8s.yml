@@ -38,7 +38,7 @@ spec:
     - port: 8091
       protocol: TCP
       targetPort: 8091
-      name: http-trafic
+      name: https-trafic
   selector:
     app: apiseguridad
   type: LoadBalancer
