@@ -40,5 +40,5 @@ spec:
       targetPort: 8091
       name: https-trafic
   selector:
-    app: apiseguridad
+    app: apiopbanca
   type: LoadBalancer
