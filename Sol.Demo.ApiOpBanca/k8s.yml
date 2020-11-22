@@ -1,0 +1,44 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apiopbanca
+spec:
+  selector:
+    matchLabels:
+      app: apiopbanca
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: apiopbanca
+    spec:
+      containers:
+      - name: apiopbanca
+        env:
+        - name: IdentityServer__UrlServer
+          value: "http://apiseguridad:8081"
+        image: msalvadorp/apiopbanca
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8090
+        - containerPort: 8091
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apiopbanca
+  labels:
+    app: apiopbanca
+spec:
+  ports:
+    - port: 8090
+      protocol: TCP
+      targetPort: 8090
+      name: http-trafic
+    - port: 8091
+      protocol: TCP
+      targetPort: 8091
+      name: http-trafic
+  selector:
+    app: apiseguridad
+  type: LoadBalancer
