@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Sol.Demo.ApiOpBanca.Migrations
 {
-    public partial class SQLGCP : Migration
+    public partial class sql : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

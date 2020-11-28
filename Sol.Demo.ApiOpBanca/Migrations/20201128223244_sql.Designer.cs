@@ -10,8 +10,8 @@ using Sol.Demo.ApiOpBanca.Contexto;
 namespace Sol.Demo.ApiOpBanca.Migrations
 {
     [DbContext(typeof(CuentasContext))]
-    [Migration("20201115000424_SQLGCP")]
-    partial class SQLGCP
+    [Migration("20201128223244_sql")]
+    partial class sql
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
