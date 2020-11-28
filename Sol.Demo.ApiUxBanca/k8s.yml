@@ -1,0 +1,41 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apiuxbanca
+spec:
+  selector:
+    matchLabels:
+      app: apiuxbanca
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: apiuxbanca
+    spec:
+      containers:
+      - name: apiuxbanca
+        env:
+        - name: IdentityServer__UrlServer
+          value: "http://apiseguridad:8081"
+        - name: "UrlApiCliente"
+          value: "https://apiopbanca:8091/"
+        image: msalvadorp/apiuxbanca
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apiuxbanca
+  labels:
+    app: apiuxbanca
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+      name: http-trafic
+  selector:
+    app: apiuxbanca
+  type: LoadBalancer
