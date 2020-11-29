@@ -17,6 +17,18 @@ namespace Sol.Demo.ApiOpCliente.Services
             _clienteContext = clienteContext;
         }
 
+        /// <summary>
+        /// Galaxy Paso 01. Debes exponer este metodo via GRPC
+        /// Agregamos el proto, creamos el servicios
+        /// 
+        /// Galaxy Paso 03 Crear un Dockerfile 
+        /// Creas una imagen apiopcuenta
+        /// Subes al Hub.docker
+        /// 
+        /// Galaxy Paso 04 Crear un archivo Yaml para usarlo en k8s
+        /// </summary>
+        /// <param name="idCuenta"></param>
+        /// <returns></returns>
         public async Task<SaldoCuentaResponseBE> RecuperarSaldoIdCuenta(int idCuenta)
         {
             var res = await (from x in _clienteContext.Cuenta

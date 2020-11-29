@@ -24,6 +24,15 @@ namespace Sol.Demo.ApiUxCustomer.Controllers
             _customerServices = customerServices;
         }
 
+        /// <summary>
+        /// Galaxy Paso 2 Este metodo debe llamar al ApiOpCliente via GRPC
+        /// Galaxy Paso 5.- Crearle el Dockerfile y creas una imagen llamada apiuxcustomer
+        /// Subes al hubDocker
+        /// Galaxy Paso 6.- Crear el yml para subirlo al k8s
+        /// Opcional Galaxy Paso 7-- Federar la aplucacion para que use el identityserver de la ApiSeguridad
+        /// </summary>
+        /// <param name="idCuenta"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> ConsultaSaldo(int idCuenta) {
 
