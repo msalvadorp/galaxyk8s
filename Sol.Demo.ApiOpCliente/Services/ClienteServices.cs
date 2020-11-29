@@ -35,6 +35,7 @@ namespace Sol.Demo.ApiOpCliente.Services
 
         public async Task<CustomerBE> RecuperarPorId(int id)
         {
+            //
             CustomerBE customerBE = null;
 
             var res = await (from x in _clienteContext.Cliente 
