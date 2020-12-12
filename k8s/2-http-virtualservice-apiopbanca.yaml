@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: apiopbanca
+spec:
+  hosts:
+    - "apiopbanca.vs"
+  gateways:
+    - http-gateway                      # 1
+  http:
+    - route:
+        - destination:
+            host: apiopbanca
+            port:
+              number: 8090
+    # - match:
+    #     - uri:
+    #         prefix: /correlations
+    #   route:
+    #     - destination:
+    #         host: lab02
+    #         port:
+    #           number: 7071

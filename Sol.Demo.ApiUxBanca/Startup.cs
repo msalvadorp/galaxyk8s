@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Sol.Demo.ApiUxBanca.Helpers;
 using Sol.Demo.ApiUxBanca.Servicios;
 using Sol.Demo.Comunes.Configs;
@@ -70,14 +71,17 @@ namespace Sol.Demo.ApiUxBanca
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            IdentityServerConfig config = Configuration
+                .GetSection("IdentityServer").Get<IdentityServerConfig>();
             //app.UseHttpsRedirection();
+
+            logger.LogWarning("Variables de IS4 " + JsonConvert.SerializeObject(config));
 
             app.UseRouting();
 

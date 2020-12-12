@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: http-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http-seg
+        protocol: HTTP
+      hosts:
+        - "apiseguridad.vs"
+    - port:
+        number: 80
+        name: http-ban
+        protocol: HTTP
+      hosts:
+        - "apiuxbanca.vs" 

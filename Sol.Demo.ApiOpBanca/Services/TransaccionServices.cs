@@ -19,6 +19,10 @@ namespace Sol.Demo.ApiOpBanca.Services
         }
         public  async Task<TxResponseBE> Transferir(TxRequestBE txRequestBE)
         {
+            if (txRequestBE.Monto > 10000)
+            {
+                throw new Exception("No se puede transferir mas de 10000");
+            }
             #region Origen
 
             var origen = await (from x in _cuentasContext.Cuenta

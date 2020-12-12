@@ -41,6 +41,32 @@ namespace Sol.Demo.ApiOpBanca.Migrations
                     b.HasKey("IdCliente");
 
                     b.ToTable("Cliente");
+
+                    b.HasData(
+                        new
+                        {
+                            IdCliente = 1,
+                            ApellidoMaterno = "Lopez",
+                            ApellidoPaterno = "Guerra",
+                            Nombres = "Juan",
+                            NroDocumento = "12312312"
+                        },
+                        new
+                        {
+                            IdCliente = 2,
+                            ApellidoMaterno = "Nieto",
+                            ApellidoPaterno = "Salguero",
+                            Nombres = "Pedro",
+                            NroDocumento = "67676767"
+                        },
+                        new
+                        {
+                            IdCliente = 3,
+                            ApellidoMaterno = "Gomez",
+                            ApellidoPaterno = "Perez",
+                            Nombres = "Maria",
+                            NroDocumento = "44344344"
+                        });
                 });
 
             modelBuilder.Entity("Sol.Demo.Comunes.DTO.Cuenta", b =>
@@ -61,6 +87,26 @@ namespace Sol.Demo.ApiOpBanca.Migrations
                     b.HasIndex("IdCliente");
 
                     b.ToTable("Cuenta");
+
+                    b.HasData(
+                        new
+                        {
+                            IdCuenta = 1,
+                            IdCliente = 1,
+                            Saldo = 120000m
+                        },
+                        new
+                        {
+                            IdCuenta = 2,
+                            IdCliente = 3,
+                            Saldo = 80000m
+                        },
+                        new
+                        {
+                            IdCuenta = 3,
+                            IdCliente = 2,
+                            Saldo = 660000m
+                        });
                 });
 
             modelBuilder.Entity("Sol.Demo.Comunes.DTO.Transaccion", b =>

@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: apiseguridad-virtual-services
+spec:
+  hosts:
+    - "apiseguridad.vs"
+  gateways:
+    - http-gateway                      # 1
+  http:
+    - route:
+        - destination:
+            host: apiseguridad
+            port:
+              number: 8081
+    # - match:
+    #     - uri:
+    #         prefix: /correlations
+    #   route:
+    #     - destination:
+    #         host: lab02
+    #         port:
+    #           number: 7071

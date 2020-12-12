@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Sol.Demo.ApiOpBanca.Migrations
 {
-    public partial class sql : Migration
+    public partial class SQLServer : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,6 +58,36 @@ namespace Sol.Demo.ApiOpBanca.Migrations
                         principalColumn: "IdCliente",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Cliente",
+                columns: new[] { "IdCliente", "ApellidoMaterno", "ApellidoPaterno", "Nombres", "NroDocumento" },
+                values: new object[] { 1, "Lopez", "Guerra", "Juan", "12312312" });
+
+            migrationBuilder.InsertData(
+                table: "Cliente",
+                columns: new[] { "IdCliente", "ApellidoMaterno", "ApellidoPaterno", "Nombres", "NroDocumento" },
+                values: new object[] { 2, "Nieto", "Salguero", "Pedro", "67676767" });
+
+            migrationBuilder.InsertData(
+                table: "Cliente",
+                columns: new[] { "IdCliente", "ApellidoMaterno", "ApellidoPaterno", "Nombres", "NroDocumento" },
+                values: new object[] { 3, "Gomez", "Perez", "Maria", "44344344" });
+
+            migrationBuilder.InsertData(
+                table: "Cuenta",
+                columns: new[] { "IdCuenta", "IdCliente", "Saldo" },
+                values: new object[] { 1, 1, 120000m });
+
+            migrationBuilder.InsertData(
+                table: "Cuenta",
+                columns: new[] { "IdCuenta", "IdCliente", "Saldo" },
+                values: new object[] { 3, 2, 660000m });
+
+            migrationBuilder.InsertData(
+                table: "Cuenta",
+                columns: new[] { "IdCuenta", "IdCliente", "Saldo" },
+                values: new object[] { 2, 3, 80000m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cuenta_IdCliente",
