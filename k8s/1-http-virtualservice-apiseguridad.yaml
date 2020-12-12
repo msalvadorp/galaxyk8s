@@ -13,11 +13,3 @@ spec:
             host: apiseguridad
             port:
               number: 8081
-    # - match:
-    #     - uri:
-    #         prefix: /correlations
-    #   route:
-    #     - destination:
-    #         host: lab02
-    #         port:
-    #           number: 7071

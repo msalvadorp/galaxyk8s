@@ -20,7 +20,8 @@ namespace Sol.Demo.ApiUxBanca.Servicios
         private readonly ITokenAdapter tokenAdapter;
         private readonly IConfiguration configuration;
 
-        public TransactionGrpcServces(ITokenAdapter tokenAdapter, IConfiguration configuration)
+        public TransactionGrpcServces(ITokenAdapter tokenAdapter, 
+            IConfiguration configuration)
         {
             this.tokenAdapter = tokenAdapter;
             this.configuration = configuration;

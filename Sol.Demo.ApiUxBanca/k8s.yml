@@ -11,6 +11,9 @@ spec:
     metadata:
       labels:
         app: apiuxbanca
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "80"
     spec:
       containers:
       - name: apiuxbanca
@@ -18,7 +21,8 @@ spec:
         - name: IdentityServer__UrlServer
           value: "http://apiseguridad:8081"
         - name: "UrlApiCliente"
-          value: "https://apiopbanca:8091/"
+          #value: "https://apiopbanca:8091/"
+          value: "http://apiopbanca:8090/"
         image: msalvadorp/apiuxbanca
         imagePullPolicy: Always
         ports:
@@ -38,4 +42,4 @@ spec:
       name: http-trafic
   selector:
     app: apiuxbanca
-  type: LoadBalancer
+  #type: LoadBalancer

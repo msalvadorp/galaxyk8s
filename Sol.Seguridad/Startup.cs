@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Sol.Seguridad.Configs;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
+using Prometheus;
 
 namespace Sol.Seguridad
 {
@@ -60,6 +61,11 @@ namespace Sol.Seguridad
 
             app.UseIdentityServer();
             app.UseRouting();
+
+            app.UseMetricServer();
+
+            //Enviar trazas HTTP
+            app.UseHttpMetrics();
 
             app.UseEndpoints(endpoints =>
             {

@@ -43,4 +43,4 @@ spec:
       name: https-trafic
   selector:
     app: apiopbanca
-  type: LoadBalancer
+  type: ClusterIP

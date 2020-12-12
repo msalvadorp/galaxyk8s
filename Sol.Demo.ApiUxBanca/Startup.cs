@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Prometheus;
 using Sol.Demo.ApiUxBanca.Helpers;
 using Sol.Demo.ApiUxBanca.Servicios;
 using Sol.Demo.Comunes.Configs;
@@ -56,7 +57,9 @@ namespace Sol.Demo.ApiUxBanca
                 if (string.IsNullOrEmpty(header) || header == "http")
                 {
                     return new TransactionHttpServices
-                        (serviceProvider.GetService<IConfiguration>());
+                        (
+                        serviceProvider.GetService<ITokenAdapter>(),
+                        serviceProvider.GetService<IConfiguration>());
                 }
                 else
                 {
@@ -84,6 +87,11 @@ namespace Sol.Demo.ApiUxBanca
             logger.LogWarning("Variables de IS4 " + JsonConvert.SerializeObject(config));
 
             app.UseRouting();
+
+            app.UseMetricServer();
+
+            //Enviar trazas HTTP
+            app.UseHttpMetrics();
 
             app.UseAuthorization();
 
